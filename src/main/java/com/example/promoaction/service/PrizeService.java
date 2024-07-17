@@ -2,6 +2,7 @@ package com.example.promoaction.service;
 
 import com.example.promoaction.entity.Prize;
 import com.example.promoaction.repository.PrizeRepository;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,7 +44,9 @@ public String saveImageToDirAndReturnPath(MultipartFile multipartFile){
 
 
 }
-
+public List<Prize> findAllPrizes(){
+    return prizeRepository.findAll();
+}
 
 
 }

@@ -4,6 +4,30 @@
     <meta charset="UTF-8">
     <title>Список Призов</title>
     <style>
+        /* Стили для навигации */
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        nav ul a:hover {
+            background-color: #575757;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -21,28 +45,26 @@
     </style>
 </head>
 <body>
+<nav>
+    <ul>
+
+        <li><a href="/user-panel">Проверить промокод</a></li>
+        <li><a href="/prizes">Список призов</a></li>
+        <li><a href="/conditions-action">Как участвовать</a></li>
+        <li><a href="/promo-rules">Правила</a></li>
+    </ul>
+</nav>
 <h1>Список Призов</h1>
 <table>
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Имя Победителя</th>
-        <th>Email Победителя</th>
-        <th>Номер Победителя</th>
-        <th>Статус Победителя</th>
-        <th>Промо Код</th>
+
         <th>Название Приза</th>
         <th>Изображение</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="prize : ${prizes}">
-        <td th:text="${prize.id}"></td>
-        <td th:text="${prize.name_winner}"></td>
-        <td th:text="${prize.email_winner}"></td>
-        <td th:text="${prize.number_winner}"></td>
-        <td th:text="${prize.status_winner ? 'Активен' : 'Неактивен'}"></td>
-        <td th:text="${prize.promo_cod}"></td>
         <td th:text="${prize.name_prize}"></td>
         <td><img th:src="@{${prize.image_path}}" alt="Изображение приза" style="max-width:100px;"/></td>
     </tr>

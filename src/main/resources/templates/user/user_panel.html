@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<<html lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Панель пользователя</title>
@@ -75,18 +75,22 @@
 <nav>
     <ul>
 
-        <li><a href="/promo-admin-panel/admin-panel">Админ панель</a></li>
-        <li><a href="/promo-admin-panel/prizes">Список призов</a></li>
-        <li><a href="/promo-admin-panel/conditions-action">Как учавствовать</a></li>
-        <li><a href="/promo-admin-panel/promo-rules">Правила</a></li>
+        <li><a href="/user-panel">Проверить промокод</a></li>
+        <li><a href="/prizes">Список призов</a></li>
+        <li><a href="/conditions-action">Как участвовать</a></li>
+        <li><a href="/promo-rules">Правила</a></li>
     </ul>
 </nav>
 
-<div class="promo-rules">
-    <h2>Информация о акции</h2>
-    <p>1. Акция проводится с 1 июня по 30 июня 2024 года.</p>
-    <p>7. Организатор оставляет за собой право изменить условия акции в любой момент без предварительного уведомления.</p>
-</div>
+<form action="/promo-admin-panel/add-prize" method="post" enctype="multipart/form-data">
+    <input type="text" name="code" placeholder="промокод">
+    <button type="submit">Проверить</button>
+
+    <div th:if="${message != null}">
+        <p th:text="${message}" class="message_added"></p>
+    </div>
+
+</form>
 
 </body>
 </html>

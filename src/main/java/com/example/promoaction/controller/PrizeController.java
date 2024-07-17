@@ -13,18 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 
 @Controller
-@RequestMapping("/promo-admin-panel")
+
 public class PrizeController {
 
     private PrizeService prizeService;
 
-    PrizeRepository prizeRepository;
 
-    public void prizeList(PrizeRepository prizeRepository) {
-        this.prizeRepository = prizeRepository;
-    }
+
+
+
 
     @Autowired
     private ResourceLoader resourceLoader;
@@ -35,7 +36,7 @@ public class PrizeController {
         this.prizeService = prizeService;
     }
 
-    @GetMapping("/add-prize")
+    @GetMapping("/promo-admin-panel/add-prize")
     public String addClassGet() {
         return "admin/add_prize";
     }
@@ -44,7 +45,7 @@ public class PrizeController {
 
 
     //POST REQUEST
-    @PostMapping("/add-prize")
+    @PostMapping("/promo-admin-panel/add-prize")
     public String addClassPost(
             @RequestParam String name_prize,
             @RequestParam String promo_code,
@@ -71,6 +72,13 @@ public class PrizeController {
 
         return "admin/add_prize";
     }
+    @GetMapping("/prizes")
+    public String prizeList(Model model) {
+       List<Prize> allPrizesList=prizeService.findAllPrizes();
+        model.addAttribute("prizes",allPrizesList);
+        return "user/prizes";
+    }
+
 
 
 

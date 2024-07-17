@@ -18,7 +18,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 @Controller
-@RequestMapping("/promo-admin-panel")
 public class InfoController {
 
 
@@ -33,7 +32,7 @@ public class InfoController {
         return "user/conditions-action";
     }
 
-    @GetMapping("/winners")
+    @GetMapping("/promo-admin-panel/winners")
     public String allPrizeGet() {
         return "admin/winners";
     }
