@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список Призов</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>Список Призов</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя Победителя</th>
+        <th>Email Победителя</th>
+        <th>Номер Победителя</th>
+        <th>Статус Победителя</th>
+        <th>Промо Код</th>
+        <th>Название Приза</th>
+        <th>Изображение</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="prize : ${prizes}">
+        <td th:text="${prize.id}"></td>
+        <td th:text="${prize.name_winner}"></td>
+        <td th:text="${prize.email_winner}"></td>
+        <td th:text="${prize.number_winner}"></td>
+        <td th:text="${prize.status_winner ? 'Активен' : 'Неактивен'}"></td>
+        <td th:text="${prize.promo_cod}"></td>
+        <td th:text="${prize.name_prize}"></td>
+        <td><img th:src="@{${prize.image_path}}" alt="Изображение приза" style="max-width:100px;"/></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

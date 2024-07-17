@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Админ панель</title>
+    <title>Панель пользователя</title>
     <style>
         /* Стили для навигации */
         nav {
@@ -52,17 +52,41 @@
             outline: none;
         }
 
-
+        /* Стили для правил акции */
+        .promo-rules {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .promo-rules h2 {
+            text-align: center;
+            color: #333;
+        }
+        .promo-rules p {
+            text-align: justify;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
 <nav>
     <ul>
+
         <li><a href="/promo-admin-panel/admin-panel">Админ панель</a></li>
-        <li><a href="/promo-admin-panel/winners">Список победителей</a></li>
-        <li><a href="/promo-admin-panel/add-prize">Добавить приз</a></li>
+        <li><a href="/promo-admin-panel/prizes">Список призов</a></li>
+        <li><a href="/promo-admin-panel/conditions-action">Как учавствовать</a></li>
+        <li><a href="/promo-admin-panel/promo-rules">Правила</a></li>
     </ul>
 </nav>
+
+<div class="promo-rules">
+    <h2>Информация о акции</h2>
+    <p>1. Акция проводится с 1 июня по 30 июня 2024 года.</p>
+    <p>7. Организатор оставляет за собой право изменить условия акции в любой момент без предварительного уведомления.</p>
+</div>
 
 </body>
 </html>

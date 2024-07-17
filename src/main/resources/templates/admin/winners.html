@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список победителей</title>
+    <style>
+        /* Стили для навигации */
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        nav ul a:hover {
+            background-color: #575757;
+        }
+
+        /* Стили для формы */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        form input[type="text"],
+        form textarea,
+        form input[type="file"] {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        form input[type="text"]:focus,
+        form textarea:focus,
+        form input[type="file"]:focus {
+            border-color: #333;
+            outline: none;
+        }
+
+        /* Стили для кнопки */
+        form button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        form button:hover {
+            background-color: #575757;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="/promo-admin-panel/admin-panel">Админ панель</a></li>
+        <li><a href="/promo-admin-panel/winners">Список победителей</a></li>
+        <li><a href="/promo-admin-panel/add-prize">Добавить приз</a></li>
+
+    </ul>
+</nav>
+
+</body>
+</html>

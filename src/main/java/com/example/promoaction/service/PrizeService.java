@@ -28,16 +28,18 @@ public void add(Prize prize) {
 }
 
 public String saveImageToDirAndReturnPath(MultipartFile multipartFile){
-    String name = multipartFile.getOriginalFilename();
-    String pathDirImg = "C:\\Users\\AlexD\\IdeaProjects\\promoAction\\src\\main\\resources\\static\\img\\";
+    ;
+    String pathDirImg = "C:\\Users\\AlexD\\IdeaProjects\\promoAction\\src\\main\\resources\\static\\img\\" + multipartFile.getOriginalFilename();
 
-    Path path = Paths.get(pathDirImg + name);
+    Path path = Paths.get(pathDirImg);
     try {
         Files.write(path,multipartFile.getBytes());
     } catch (IOException e) {
         throw new RuntimeException(e);
     }
-    return "/img/"+name;
+    return "/img/"+multipartFile.getOriginalFilename();
+
+
 
 
 }
