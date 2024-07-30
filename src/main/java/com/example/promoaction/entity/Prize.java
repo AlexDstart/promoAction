@@ -20,13 +20,13 @@ public class Prize {
     private String email_winner;
     private String number_winner;
     private Boolean status_winner ;
-    private String promo_cod;
+    private String promoCode;
     private String name_prize;
     private String image_path;
 
-    public Prize(String name_winner, String promo_cod, String image_path) {
+    public Prize(String name_winner, String promoCode, String image_path) {
         this.name_winner = name_winner;
-        this.promo_cod = promo_cod;
+        this.promoCode = promoCode;
         this.image_path = image_path;
     }
 }

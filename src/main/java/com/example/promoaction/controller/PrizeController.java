@@ -1,7 +1,6 @@
 package com.example.promoaction.controller;
 
 import com.example.promoaction.entity.Prize;
-import com.example.promoaction.repository.PrizeRepository;
 import com.example.promoaction.service.PrizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -54,11 +52,15 @@ public class PrizeController {
 
         String[] promoCodes = promo_code.split("[,\\s;]");
         String path = prizeService.saveImageToDirAndReturnPath(img_prize);
+        if (path == null) {
+            model.addAttribute("error", "Failed to save image");
+            return "admin/add_prize";
+        }
 
         for (String code : promoCodes) {
             Prize prize = new Prize();
             prize.setName_prize(name_prize);
-            prize.setPromo_cod(code);
+            prize.setPromoCode(code);
             prize.setImage_path(path);
 
             prizeService.add(prize);
@@ -78,11 +80,24 @@ public class PrizeController {
         model.addAttribute("prizes",allPrizesList);
         return "user/prizes";
     }
+    @PostMapping("/check-promo")
+    public String checkPromo(@RequestParam String promoCode, Model model) {
+        boolean exists = prizeService.checkPromo(promoCode);
 
+        if (exists) {
+            model.addAttribute("message", "Промокод действителен!");
+        } else {
+            model.addAttribute("message", "Промокод не найден.");
+        }
 
-
-
-
+        return "user/check_promo";
+    }
 }
+
+
+
+
+
+
 
 

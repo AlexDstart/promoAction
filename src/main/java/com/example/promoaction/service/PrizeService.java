@@ -47,6 +47,9 @@ public String saveImageToDirAndReturnPath(MultipartFile multipartFile){
 public List<Prize> findAllPrizes(){
     return prizeRepository.findAll();
 }
+    public boolean checkPromo(String promoCode) {
+        return prizeRepository.existsByPromoCode(promoCode);
+    }
 
 
 }
