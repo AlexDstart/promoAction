@@ -14,42 +14,62 @@ import java.util.List;
 
 @Service
 public class PrizeService {
-PrizeRepository prizeRepository;
-public PrizeService(PrizeRepository prizeRepository)
-{
-    this.prizeRepository = prizeRepository;
-}
-public List<Prize> getAllPrizes()
-{
-    return prizeRepository.findAll();
-}
+    PrizeRepository prizeRepository;
 
-public void add(Prize prize) {
-    prizeRepository.save(prize);
-}
-
-public String saveImageToDirAndReturnPath(MultipartFile multipartFile){
-    ;
-    String pathDirImg = "C:\\Users\\AlexD\\IdeaProjects\\promoAction\\src\\main\\resources\\static\\img\\" + multipartFile.getOriginalFilename();
-
-    Path path = Paths.get(pathDirImg);
-    try {
-        Files.write(path,multipartFile.getBytes());
-    } catch (IOException e) {
-        throw new RuntimeException(e);
+    public PrizeService(PrizeRepository prizeRepository) {
+        this.prizeRepository = prizeRepository;
     }
-    return "/img/"+multipartFile.getOriginalFilename();
+
+    public List<Prize> getAllPrizes() {
+        return prizeRepository.findAll();
+    }
+
+    public void add(Prize prize) {
+        prizeRepository.save(prize);
+    }
+
+    public String saveImageToDirAndReturnPath(MultipartFile multipartFile) {
+        ;
+        String pathDirImg = "C:\\Users\\AlexD\\IdeaProjects\\promoAction\\src\\main\\resources\\static\\img\\" + multipartFile.getOriginalFilename();
+
+        Path path = Paths.get(pathDirImg);
+        try {
+            Files.write(path, multipartFile.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "/img/" + multipartFile.getOriginalFilename();
 
 
+    }
 
+    public List<Prize> findAllPrizes() {
+        return prizeRepository.findAll();
+    }
 
-}
-public List<Prize> findAllPrizes(){
-    return prizeRepository.findAll();
-}
     public boolean checkPromo(String promoCode) {
         return prizeRepository.existsByPromoCode(promoCode);
     }
 
+    public boolean isNotActivationPromoCode(String promoCode){
+        Prize prize = prizeRepository.findByPromoCode(promoCode);
+        if (prize == null) return true;
+       return  prizeRepository.findByPromoCode(promoCode).getName_winner() == null;
+    }
 
+    public Prize getPrize(String promoCode){
+        return prizeRepository.findByPromoCode(promoCode);
+    }
+    public Prize getPrizeById(Long id) {
+        return prizeRepository.findById(id).orElse(null);
+    }
+
+    public void updatePrize(Prize prize) {
+        prizeRepository.save(prize);
+    }
 }
+
+
+
+
+

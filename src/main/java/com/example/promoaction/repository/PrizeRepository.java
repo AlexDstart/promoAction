@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface PrizeRepository extends JpaRepository<Prize,Long> {
 
     boolean existsByPromoCode(String promoCode);
+    Prize findByPromoCode(String promoCode);
 
 }

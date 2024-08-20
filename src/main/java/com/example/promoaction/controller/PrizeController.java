@@ -1,7 +1,10 @@
 package com.example.promoaction.controller;
 
 import com.example.promoaction.entity.Prize;
+import com.example.promoaction.repository.PrizeRepository;
 import com.example.promoaction.service.PrizeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,7 @@ import java.util.List;
 
 public class PrizeController {
 
+    private static final Logger log = LoggerFactory.getLogger(PrizeController.class);
     private PrizeService prizeService;
 
 
@@ -27,7 +31,8 @@ public class PrizeController {
 
     @Autowired
     private ResourceLoader resourceLoader;
-
+    @Autowired
+    private PrizeRepository prizeRepository;
 
 
     public PrizeController(PrizeService prizeService) {
@@ -66,32 +71,73 @@ public class PrizeController {
             prizeService.add(prize);
         }
 
-
-
-
         model.addAttribute("message", "prize added");
-
-
         return "admin/add_prize";
     }
+
+
     @GetMapping("/prizes")
     public String prizeList(Model model) {
        List<Prize> allPrizesList=prizeService.findAllPrizes();
         model.addAttribute("prizes",allPrizesList);
         return "user/prizes";
     }
+
+
     @PostMapping("/check-promo")
     public String checkPromo(@RequestParam String promoCode, Model model) {
-        boolean exists = prizeService.checkPromo(promoCode);
 
-        if (exists) {
-            model.addAttribute("message", "Промокод действителен!");
-        } else {
-            model.addAttribute("message", "Промокод не найден.");
+        boolean exists = prizeService.checkPromo(promoCode);
+        if(!exists) {
+            model.addAttribute("error", "Promo doesn't exist");
+            log.info("Promo doesn't exist");
+            return "user/check_promo";
         }
 
-        return "user/check_promo";
+        boolean isNotActivate= prizeService.isNotActivationPromoCode(promoCode);
+        if (!isNotActivate) {
+            log.info("Promo isn't activated");
+            model.addAttribute("message", "Промокод уже активирован");
+            return "user/check_promo";
+        }
+
+        Prize prize = prizeService.getPrize(promoCode);
+        model.addAttribute("img_path",prize.getImage_path());
+        model.addAttribute("id_prize",prize.getId());
+        model.addAttribute("name_prize",prize.getName_prize());
+        return "user/form_get_prize";
+
     }
+    @PostMapping("/form_get_prize")
+    public String processPrizeForm(
+            @RequestParam("id_prize") Long idPrize,
+            @RequestParam("name") String name,
+            @RequestParam("phone") String phone,
+            @RequestParam("email") String email,
+            Model model) {
+
+        // Найти приз по ID
+        Prize prize = prizeService.getPrizeById(idPrize);
+
+        if (prize != null) {
+            // Обновить данные приза
+            prize.setName_winner(name);
+            prize.setNumber_winner(phone);
+            prize.setEmail_winner(email);
+            prize.setStatus_winner(true);  // Установить статус "приз получен"
+
+            // Сохранить обновленный приз
+            prizeService.updatePrize(prize);
+
+            // Добавить информацию в модель для отображения на странице подтверждения
+            model.addAttribute("name_prize", prize.getName_prize());
+            model.addAttribute("name_winner", name);
+        }
+
+        // Перенаправить на страницу подтверждения
+        return "user/confirmation";
+    }
+
 }
 
 

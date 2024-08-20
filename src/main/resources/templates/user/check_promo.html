@@ -82,8 +82,8 @@
     </ul>
 </nav>
 
-<form action="/promo-admin-panel/add-prize" method="post" enctype="multipart/form-data">
-    <input type="text" name="code" placeholder="промокод">
+<form action="/check-promo" method="post" enctype="multipart/form-data">
+    <input type="text" name="promoCode" placeholder="промокод" required>
     <button type="submit">Проверить</button>
 
     <div th:if="${message != null}">
