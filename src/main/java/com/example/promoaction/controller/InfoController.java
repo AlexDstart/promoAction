@@ -1,5 +1,7 @@
 package com.example.promoaction.controller;
 
+import com.example.promoaction.entity.Prize;
+import com.example.promoaction.service.PrizeService;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +18,11 @@ import java.util.List;
 @Controller
 public class InfoController {
 
+private final PrizeService prizeService;
+
+    public InfoController(PrizeService prizeService) {
+        this.prizeService = prizeService;
+    }
 
     @GetMapping("/conditions-action")
     public String conditionsAction(Model model) {
@@ -29,7 +36,9 @@ public class InfoController {
     }
 
     @GetMapping("/promo-admin-panel/winners")
-    public String allPrizeGet() {
+    public String allPrizeGet(Model model) {
+        List<Prize> winnerList=prizeService.getAllPrizes();
+        model.addAttribute("winners", winnerList);
         return "admin/winners";
     }
 

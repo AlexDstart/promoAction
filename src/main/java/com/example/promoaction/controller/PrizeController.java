@@ -89,7 +89,7 @@ public class PrizeController {
 
         boolean exists = prizeService.checkPromo(promoCode);
         if(!exists) {
-            model.addAttribute("error", "Promo doesn't exist");
+            model.addAttribute("message", "Promo doesn't exist");
             log.info("Promo doesn't exist");
             return "user/check_promo";
         }
@@ -97,7 +97,7 @@ public class PrizeController {
         boolean isNotActivate= prizeService.isNotActivationPromoCode(promoCode);
         if (!isNotActivate) {
             log.info("Promo isn't activated");
-            model.addAttribute("message", "Промокод уже активирован");
+               model.addAttribute("message", "Промокод уже активирован");
             return "user/check_promo";
         }
 
@@ -124,7 +124,7 @@ public class PrizeController {
             prize.setName_winner(name);
             prize.setNumber_winner(phone);
             prize.setEmail_winner(email);
-            prize.setStatus_winner(true);  // Установить статус "приз получен"
+            //prize.setStatus_winner(true);  // Установить статус "приз получен"
 
             // Сохранить обновленный приз
             prizeService.updatePrize(prize);
